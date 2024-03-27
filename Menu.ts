@@ -1,10 +1,19 @@
 import readlinesync = require("readline-sync"); //importar biblioteca readline-sync
 import { colors } from "./src/util/Colors"; //importar biblioteca de cores
+import { Conta } from "./src/util/model/Conta";
 
-export function main () { //cria função main, e export para ficar acessível fora da classe menu
-    
-    let opcao: number; //variável tipo number chamada opcao
-    
+export function main() {
+
+    let opcao: number;
+
+    // Objeto da Classe Conta (Teste)
+    const conta: Conta = new Conta(1, 123, 1, "Carlos", 10000);
+    conta.visualizar();
+    conta.sacar(500);
+    conta.visualizar();
+    conta.depositar(2000);
+    conta.visualizar();
+
     while (true) { //loop repetição enquanto for true
 //primeiro console.log possui cor background preta, e cor da letra cyan, e no final do código ,resetar cor padrão
     console.log(colors.bg.black, colors.fg.cyan,"************************************************************************")
