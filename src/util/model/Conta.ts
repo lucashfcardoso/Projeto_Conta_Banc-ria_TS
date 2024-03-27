@@ -6,16 +6,16 @@ export class Conta {
     private _titular: string;
     private _saldo: number;
 
-
+    //Método Construtor receberá dados do Objeto através dos parâmetros, que serão atribuídos aos Atributos do Objeto da Classe Conta.    
 	constructor(_numero: number, _agencia: number, _tipo: number, _titular: string, _saldo: number) {
 		this._numero = _numero;
 		this._agencia = _agencia;
 		this._tipo = _tipo;
 		this._titular = _titular;
 		this._saldo = _saldo;
-	}
+	}   //Os dados recebidos nos parâmetros do Método Construtor são atribuídos aos respectivos Atributos da Classe Conta. Como os parâmetros possuem os mesmos nomes do Atributos da Classe, foi utilizada a palavra reservada this para diferenciar o Atributo da Classe Conta do parâmetro do Método Construtor da Classe Conta
     
-
+    //Métodos Get e Set para todos os Atributos da Classe Conta. Através destes Métodos, poderemos acessar e modificar os Atributos da Classe Conta, a partir de outras Classes. Desta forma, manteremos os nosso Atributos protegidos através do Encapsulamento.
 
     /**
      * Getter numero
