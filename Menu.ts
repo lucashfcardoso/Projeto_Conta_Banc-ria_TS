@@ -1,18 +1,34 @@
 import readlinesync = require("readline-sync"); //importar biblioteca readline-sync
 import { colors } from "./src/util/Colors"; //importar biblioteca de cores
 import { Conta } from "./src/util/model/Conta";
+import { ContaCorrente } from "./src/util/model/ContaCorrente";
+import { ContaPoupanca } from "./src/util/model/ContaPoupanca";
 
 export function main() {
 
     let opcao: number;
 
-    // Objeto da Classe Conta (Teste)
+    /* Objeto da Classe Conta (Teste)
     const conta: Conta = new Conta(1, 123, 1, "Carlos", 10000);
     conta.visualizar();
     conta.sacar(500);
     conta.visualizar();
     conta.depositar(2000);
-    conta.visualizar();
+    conta.visualizar();*/
+
+    const cc1: ContaCorrente = new ContaCorrente (2, 456, 1, "Lucas", 5000, 1000);
+    cc1.visualizar();
+    cc1.sacar(1000);
+    cc1.visualizar();
+    cc1.depositar(5000);
+    cc1.visualizar();
+
+    const cp1: ContaPoupanca = new ContaPoupanca (3, 456, 2, "Lucas", 300, 10); //dia do aniversário (10)
+    cp1.visualizar();
+    cp1.sacar(50);
+    cp1.visualizar();
+    cp1.depositar(100);
+    cp1.visualizar();
 
     while (true) { //loop repetição enquanto for true
 //primeiro console.log possui cor background preta, e cor da letra cyan, e no final do código ,resetar cor padrão
@@ -41,42 +57,42 @@ export function main() {
 
     if (opcao == 9) { //SE o código digitado for 9
         console.log (colors.fg.cyanstrong, "Banco do Lucas - Planejando seu Futuro! ", colors.reset) //aparece esta mensagem de saída
-        sobre(); //exeibirá os dados da pessoa
+        sobre(); //exeibirá os dados do criador
         process.exit(0); //programa será finalizado
     }
 
     switch(opcao) {                               //referente ao número digitado, caso (x) aprece mensagem (console)
         case 1:
             console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n" , colors.reset);
-        
+            keyPress()
             break;
         case 2:
             console.log(colors.fg.whitestrong, "\n\nListar todas as Contas\n\n", colors.reset);
-    
+            keyPress()
             break;
         case 3:
             console.log(colors.fg.whitestrong, "\n\nConsultar dados da Conta - por número\n\n", colors.reset);
-
+            keyPress()
             break;
         case 4:
             console.log(colors.fg.whitestrong, "\n\nAtualizar dados da Conta\n\n", colors.reset);
-
+            keyPress()
             break;
         case 5:
             console.log(colors.fg.whitestrong, "\n\nApagar um Conta\n\n", colors.reset);
-
+            keyPress()
             break;
         case 6:
             console.log(colors.fg.whitestrong, "\n\nSaque\n\n", colors.reset);
-
+            keyPress()
             break;
         case 7:
             console.log(colors.fg.whitestrong, "\n\nDepósito\n\n", colors.reset);
-
+            keyPress()
             break;
         case 8:
             console.log(colors.fg.whitestrong, "\n\nTransferência entre Contas\n\n", colors.reset);
-
+            keyPress()
             break;
             default:                                   //caso dígito seja diferente
                 console.log("\nOpção Inválida!\n")     //aparece essa mensagem 
@@ -96,5 +112,11 @@ export function main() {
         console.log("\nhttps://github.com/lucashfcardoso")
         console.log("\n******************************************")
         
+    }
+
+    function keyPress() {
+        console.log(colors.reset, "");
+        console.log("\n Pressione enter para continuar")
+        readlinesync.prompt();
     }
 main ();              //para função criada no início funcionar
