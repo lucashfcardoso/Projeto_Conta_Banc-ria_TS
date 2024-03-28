@@ -6,97 +6,53 @@ export class Conta {
     private _titular: string;
     private _saldo: number;
 
-    //Método Construtor receberá dados do Objeto através dos parâmetros, que serão atribuídos aos Atributos do Objeto da Classe Conta.    
-	constructor(_numero: number, _agencia: number, _tipo: number, _titular: string, _saldo: number) {
-		this._numero = _numero;
-		this._agencia = _agencia;
-		this._tipo = _tipo;
-		this._titular = _titular;
-		this._saldo = _saldo;
-	}   //Os dados recebidos nos parâmetros do Método Construtor são atribuídos aos respectivos Atributos da Classe Conta. Como os parâmetros possuem os mesmos nomes do Atributos da Classe, foi utilizada a palavra reservada this para diferenciar o Atributo da Classe Conta do parâmetro do Método Construtor da Classe Conta
-    
-    //Métodos Get e Set para todos os Atributos da Classe Conta. Através destes Métodos, poderemos acessar e modificar os Atributos da Classe Conta, a partir de outras Classes. Desta forma, manteremos os nosso Atributos protegidos através do Encapsulamento.
+    constructor(numero: number, agencia: number, tipo: number, titular: string, saldo: number) {
+        this._numero = numero;
+        this._agencia = agencia;
+        this._tipo = tipo;
+        this._titular = titular;
+        this._saldo = saldo;
+    }
 
-    /**
-     * Getter numero
-     * @return {number}
-     */
-	public get numero(): number {
-		return this._numero;
-	}
+    public get numero() {
+        return this._numero;
+    }
 
-    /**
-     * Getter agencia
-     * @return {number}
-     */
-	public get agencia(): number {
-		return this._agencia;
-	}
+    public set numero(numero: number) {
+        this._numero = numero;
+    }
 
-    /**
-     * Getter tipo
-     * @return {number}
-     */
-	public get tipo(): number {
-		return this._tipo;
-	}
+    public get agencia() {
+        return this._agencia;
+    }
 
-    /**
-     * Getter titular
-     * @return {string}
-     */
-	public get titular(): string {
-		return this._titular;
-	}
+    public set agencia(agencia: number) {
+        this._agencia = agencia;
+    }
 
-    /**
-     * Getter saldo
-     * @return {number}
-     */
-	public get saldo(): number {
-		return this._saldo;
-	}
+    public get tipo() {
+        return this._tipo;
+    }
 
-    /**
-     * Setter numero
-     * @param {number} value
-     */
-	public set numero(value: number) {
-		this._numero = value;
-	}
+    public set tipo(tipo: number) {
+        this._tipo = tipo;
+    }
 
-    /**
-     * Setter agencia
-     * @param {number} value
-     */
-	public set agencia(value: number) {
-		this._agencia = value;
-	}
+    public get titular() {
+        return this._titular;
+    }
 
-    /**
-     * Setter tipo
-     * @param {number} value
-     */
-	public set tipo(value: number) {
-		this._tipo = value;
-	}
+    public set titular(titular: string) {
+        this._titular = titular;
+    }
 
-    /**
-     * Setter titular
-     * @param {string} value
-     */
-	public set titular(value: string) {
-		this._titular = value;
-	}
+    public get saldo() {
+        return this._saldo;
+    }
 
-    /**
-     * Setter saldo
-     * @param {number} value
-     */
-	public set saldo(value: number) {
-		this._saldo = value;
-	}
-    
+    public set saldo(saldo: number) {
+        this._saldo = saldo;
+    }
 
     public sacar(valor: number): boolean {
 
@@ -128,6 +84,7 @@ export class Conta {
 
         console.log("\n\n*****************************************************");
         console.log("Dados da Conta:");
+        console.log("*****************************************************");
         console.log("Numero da Conta: " + this._numero);
         console.log("Agência: " + this._agencia);
         console.log("Tipo da Conta: " + tipo);
