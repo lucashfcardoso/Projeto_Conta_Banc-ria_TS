@@ -1,4 +1,4 @@
-export class Conta {
+export abstract class Conta {   // utilizadas apenas para permitir a derivação de novas classes. 
 
     private _numero: number;
     private _agencia: number;
