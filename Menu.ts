@@ -3,10 +3,16 @@ import { colors } from "./src/util/Colors"; //importar biblioteca de cores
 import { Conta } from "./src/util/model/Conta";
 import { ContaCorrente } from "./src/util/model/ContaCorrente";
 import { ContaPoupanca } from "./src/util/model/ContaPoupanca";
+import { ContaController } from "./src/util/controller/ContaController";
 
 export function main() {
 
     let opcao: number;
+
+    let contas: ContaController = new ContaController();
+
+    let cc1: ContaCorrente = new ContaCorrente(2, 456, 1, "Lucas", 5000, 1000)
+    contas.cadastrar(cc1);
 
     /* Objeto da Classe Conta (Teste)
     const conta: Conta = new Conta(1, 123, 1, "Carlos", 10000);
@@ -16,19 +22,19 @@ export function main() {
     conta.depositar(2000);
     conta.visualizar();*/
 
-    const cc1: ContaCorrente = new ContaCorrente (2, 456, 1, "Lucas", 5000, 1000);
-    cc1.visualizar();
-    cc1.sacar(1000);
-    cc1.visualizar();
-    cc1.depositar(5000);
-    cc1.visualizar();
+    const ccor1: ContaCorrente = new ContaCorrente (2, 456, 1, "Lucas", 5000, 1000);
+    ccor1.visualizar();
+    ccor1.sacar(1000);
+    ccor1.visualizar();
+    ccor1.depositar(5000);
+    ccor1.visualizar();
 
-    const cp1: ContaPoupanca = new ContaPoupanca (3, 456, 2, "Lucas", 300, 10); //dia do aniversário (10)
-    cp1.visualizar();
-    cp1.sacar(50);
-    cp1.visualizar();
-    cp1.depositar(100);
-    cp1.visualizar();
+    const cpou1: ContaPoupanca = new ContaPoupanca (3, 456, 2, "Lucas", 300, 10); //dia do aniversário (10)
+    cpou1.visualizar();
+    cpou1.sacar(50);
+    cpou1.visualizar();
+    cpou1.depositar(100);
+    cpou1.visualizar();
 
     while (true) { //loop repetição enquanto for true
 //primeiro console.log possui cor background preta, e cor da letra cyan, e no final do código ,resetar cor padrão
@@ -66,7 +72,7 @@ export function main() {
             console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n" , colors.reset);
             keyPress()
             break;
-        case 2:
+        case 2:                                   //(EDITAR!!!)
             console.log(colors.fg.whitestrong, "\n\nListar todas as Contas\n\n", colors.reset);
             keyPress()
             break;
