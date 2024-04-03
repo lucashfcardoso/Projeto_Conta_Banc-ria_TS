@@ -7,7 +7,9 @@ import { ContaController } from "./src/util/controller/ContaController";
 
 export function main() {
 
-    let opcao: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversário, valor, numeroDestino: number;
+    let titular: string;
+    const tipoContas = ['Conta Corrente', 'Conta Poupanca'];
 
     let contas: ContaController = new ContaController();
 
@@ -22,14 +24,14 @@ export function main() {
     conta.depositar(2000);
     conta.visualizar();*/
 
-    const ccor1: ContaCorrente = new ContaCorrente (2, 456, 1, "Lucas", 5000, 1000);
+    const ccor1: ContaCorrente = new ContaCorrente (contas.gerarNumero(), 456, 1, "Lucas", 5000, 1000);
     ccor1.visualizar();
     ccor1.sacar(1000);
     ccor1.visualizar();
     ccor1.depositar(5000);
     ccor1.visualizar();
 
-    const cpou1: ContaPoupanca = new ContaPoupanca (3, 456, 2, "Lucas", 300, 10); //dia do aniversário (10)
+    const cpou1: ContaPoupanca = new ContaPoupanca (contas.gerarNumero(), 456, 2, "Lucas", 300, 10); //dia do aniversário (10)
     cpou1.visualizar();
     cpou1.sacar(50);
     cpou1.visualizar();
@@ -37,7 +39,7 @@ export function main() {
     cpou1.visualizar();
 
     while (true) { //loop repetição enquanto for true
-//primeiro console.log possui cor background preta, e cor da letra cyan, e no final do código ,resetar cor padrão
+    //primeiro console.log possui cor background preta, e cor da letra cyan, e no final do código, resetar cor padrão
     console.log(colors.bg.black, colors.fg.cyan,"************************************************************************")
     console.log("                                                                        " , colors.reset)
     console.log(colors.fg.cyanstrong, "                            BANCO DO LUCAS                              ", colors.reset)
@@ -58,8 +60,7 @@ export function main() {
     console.log("                                                                        " , colors.reset) //delimitar até onde vai a cor
     console.log(colors.bg.black, colors.fg.white, "Entre com a opção desejada: "); //digite o código referente a opção
     opcao = readlinesync.questionInt ("") //guardar número digitado (entrada)
-    console.log(colors.reset
-        )
+    console.log(colors.reset)
 
     if (opcao == 9) { //SE o código digitado for 9
         console.log (colors.fg.cyanstrong, "Banco do Lucas - Planejando seu Futuro! ", colors.reset) //aparece esta mensagem de saída
@@ -70,34 +71,153 @@ export function main() {
     switch(opcao) {                               //referente ao número digitado, caso (x) aprece mensagem (console)
         case 1:
             console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n" , colors.reset);
+           
+            console.log("Digite o número da agência: ")
+            agencia = readlinesync.questionInt ("") //mensagem feita antes pois readline não aceita acentos
+           
+            console.log("Digite o nome da títular: ")
+            titular = readlinesync.question ("")
+           
+            console.log("Informe o tipo da conta: ")
+            tipo = readlinesync.keyInSelect(tipoContas, "", {cancel:false}) + 1 //+1 para não começar no índice 0
+
+            console.log("Digite o saldo da conta: ")
+            saldo = readlinesync.questionFloat ("")
+
+            switch(tipo){
+                case 1: //caso seja conta corrente
+                console.log("Digite o limite da conta: ")
+                limite = readlinesync.questionFloat("")
+                contas.cadastrar(
+                    new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite)
+                )
+                break;
+
+                case 2:
+                    console.log("Digite o dia do aniverário da conta: ")
+                    aniversário = readlinesync.questionInt("")
+                    contas.cadastrar(
+                        new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversário)
+                    )
+                    break;
+            }
             keyPress()
             break;
-        case 2:                                   //(EDITAR!!!)
+
+        case 2:                                   
             console.log(colors.fg.whitestrong, "\n\nListar todas as Contas\n\n", colors.reset);
+            contas.listarTodas();
             keyPress()
             break;
+            
         case 3:
             console.log(colors.fg.whitestrong, "\n\nConsultar dados da Conta - por número\n\n", colors.reset);
+
+            console.log("Digite o número da conta: ")
+            numero = readlinesync.questionInt ("")
+
+            contas.procurarPorNumero(numero);
             keyPress()
             break;
+        
         case 4:
             console.log(colors.fg.whitestrong, "\n\nAtualizar dados da Conta\n\n", colors.reset);
+
+            console.log("Digite o número da conta: ")
+            numero = readlinesync.questionInt ("")
+
+            let conta = contas.buscarNoArray(numero)
+
+            if (conta !== null){
+
+            console.log("Digite o número da agência: ")
+            agencia = readlinesync.questionInt ("") //mensagem feita antes pois readline não aceita acentos
+           
+            console.log("Digite o nome da títular: ")
+            titular = readlinesync.question ("")
+           
+            tipo = conta.tipo
+
+            console.log("Digite o saldo da conta: ")
+            saldo = readlinesync.questionFloat ("")
+
+            switch(tipo){
+                case 1: //caso seja conta corrente
+                console.log("Digite o limite da conta: ")
+                limite = readlinesync.questionFloat("")
+                contas.atualizar(
+                    new ContaCorrente(numero, agencia, tipo, titular, saldo, limite)
+                )
+                break;
+
+                case 2:
+                    console.log("Digite o dia do aniverário da conta: ")
+                    aniversário = readlinesync.questionInt("")
+                    contas.atualizar(
+                        new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversário)
+                    )
+                    break;
+                }
+            }else {
+                console.log("A conta não foi encontrada!")
+            }
+
             keyPress()
             break;
+
         case 5:
-            console.log(colors.fg.whitestrong, "\n\nApagar um Conta\n\n", colors.reset);
+            console.log(colors.fg.whitestrong, "\n\nApagar uma Conta\n\n", colors.reset);
+
+            console.log("Digite o número da conta: ")
+            numero = readlinesync.questionInt ("")
+
+            contas.deletar(numero);
+
             keyPress()
             break;
+
         case 6:
             console.log(colors.fg.whitestrong, "\n\nSaque\n\n", colors.reset);
+
+            console.log("Digite o número da conta: ")
+            numero = readlinesync.questionInt ("")
+
+            console.log("Digite o valor do saque: ")
+            valor = readlinesync.questionFloat ("")
+
+            contas.sacar(numero, valor);
+
             keyPress()
             break;
+
         case 7:
             console.log(colors.fg.whitestrong, "\n\nDepósito\n\n", colors.reset);
+
+            console.log("Digite o número da conta: ")
+            numero = readlinesync.questionInt ("")
+
+            console.log("Digite o valor do depósito: ")
+            valor = readlinesync.questionFloat ("")
+
+            contas.depositar(numero, valor);
+
             keyPress()
             break;
+
         case 8:
             console.log(colors.fg.whitestrong, "\n\nTransferência entre Contas\n\n", colors.reset);
+
+            console.log("Digite o número da conta de origem: ")
+            numero = readlinesync.questionInt ("")
+
+            console.log("Digite o número da conta de destino: ")
+            numeroDestino = readlinesync.questionInt ("")
+
+            console.log("Digite o valor do depósito: ")
+            valor = readlinesync.questionFloat ("")
+
+            contas.transferir(numero, numeroDestino, valor);
+
             keyPress()
             break;
             default:                                   //caso dígito seja diferente
@@ -106,10 +226,7 @@ export function main() {
             break;
     }   
   }   
-  
 }   
-
-
 
     export function sobre(): void {                                    //função com dados da pessoa desenvolvedora
         console.log("\n******************************************")
@@ -117,7 +234,6 @@ export function main() {
         console.log("\nlucashfcardoso@gmail.com")
         console.log("\nhttps://github.com/lucashfcardoso")
         console.log("\n******************************************")
-        
     }
 
     function keyPress() {
@@ -125,4 +241,5 @@ export function main() {
         console.log("\n Pressione enter para continuar")
         readlinesync.prompt();
     }
+
 main ();              //para função criada no início funcionar
